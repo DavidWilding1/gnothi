@@ -10,7 +10,7 @@ import PremiumIcon from '@mui/icons-material/LockOutlined';
 
 export default function SuggestEntry() {
   const premium = useStore(s => s.user?.me?.premium)
-  const setPremium = useStore(useCallback(s => s.modals.setPremium,[]))
+  const setAccount = useStore(useCallback(s => s.modals.setAccount,[]))
   const insights_nextentry_response = useStore(s => s.res.insights_nextentry_response?.hash?.['list']?.text)
   const [showSuggested, setShowSuggested] = useState(false)
 
@@ -20,7 +20,7 @@ export default function SuggestEntry() {
     if (premium) {
       return setShowSuggested(!showSuggested)
     }
-    setPremium(true)
+    setAccount(true)
   }
 
   const loading = premium && !insights_nextentry_response?.length

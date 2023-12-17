@@ -98,3 +98,10 @@ export const users_credit_request = new Route(r.users_credit_request, async func
   await context.m.users.canGenerative(user, true)
   return []
 })
+
+export const users_delete_request = new Route(r.users_delete_request, async function(req, context) {
+  const {user, db, m, s} = context
+  // TODO delete cognito user as well
+  await db.drizzle.delete(s.users).where(eq(users.id, context.uid))
+  return []
+})

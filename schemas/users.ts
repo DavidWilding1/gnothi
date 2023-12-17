@@ -150,6 +150,19 @@ export const routes = {
       e: "void",
       s: z.void(),
     }
+  },
+
+  users_delete_request: {
+    i: {
+      e: "users_delete_request",
+      s: Passthrough,
+      t: {ws: true},
+      snoopable: false,
+    },
+    o: {
+      e: "users_delete_response",
+      s: Passthrough,
+    }
   }
 }
 

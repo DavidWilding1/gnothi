@@ -33,12 +33,12 @@ export function CreditBanner() {
     creditActive,
     creditSeconds,
     me,
-    setPremium
+    setAccount
   ] = useStore(s => [
     s.creditActive,
     s.creditSeconds,
     s.user?.me,
-    s.modals.setPremium
+    s.modals.setAccount
   ], shallow)
   const setShow = useDialogStore(s => s.setShow)
 
@@ -52,7 +52,7 @@ export function CreditBanner() {
       severity="info"
       className='credit-banner'
       action={<Stack direction='column' gap={1}>
-        <Button variant='outlined' color="inherit" size="small" onClick={() => setPremium(true)}>
+        <Button variant='outlined' color="inherit" size="small" onClick={() => setAccount(true)}>
           Upgrade for Unlimited
         </Button>
         <Button variant='text' color="inherit" size="small" onClick={() => setShow(true)}>

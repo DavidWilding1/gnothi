@@ -172,7 +172,7 @@ export default function Insights({entry_ids}: Insights) {
       {useMemo(() => <Insight
         label="Prompt"
         icon={<PromptIcon {...iconProps} />}
-        moreClick={() => me?.premium ? get().modals.setPrompt(true) : get().modals.setPremium(true)}
+        moreClick={() => me?.premium ? get().modals.setPrompt(true) : get().modals.setAccount(true)}
         description="Ask Gnothi anything"
         action={`The context for the query ${view === "list" ? "are the entries you see, based on your filters." : "is this entry"}`}
       >

@@ -37,11 +37,11 @@ export default function BtnTryGenerative({
   submit,
   btnProps={},
 }: BtnTryGenerative) {
-  const [me, creditActive, creditActivate, setPremium] = useStore(s => [
+  const [me, creditActive, creditActivate, setAccount] = useStore(s => [
     s.user?.me,
     s.creditActive,
     s.creditActivate,
-    s.modals.setPremium
+    s.modals.setAccount
   ], shallow)
   const setShow = useDialogStore(s => s.setShow)
 
@@ -70,7 +70,7 @@ export default function BtnTryGenerative({
 
   if (me?.credits < 1 && !me?.premium) {
     return <Button
-      onClick={() => setPremium(true)}
+      onClick={() => setAccount(true)}
       {...btnProps_}
     >
       {tryLabel} (0 credits)

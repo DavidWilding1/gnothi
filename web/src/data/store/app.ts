@@ -43,8 +43,8 @@ export interface AppSlice {
   setUser: (user: User) => void
 
   modals: {
-    premium: boolean
-    setPremium: (show: boolean) => void
+    account: boolean
+    setAccount: (show: boolean) => void
     prompt: boolean
     setPrompt: (show: boolean) => void
     entry: EntryModal
@@ -128,8 +128,10 @@ export const appSlice: StateCreator<
   setProfile: (profile) => set({profile}),
 
   modals: {
-    premium: false,
-    setPremium: (show) => set(produce(state => {state.modals.premium = show})),
+    account: false,
+    setAccount: (show) => set(produce(state => {
+      state.modals.account = show
+    })),
     prompt: false,
     setPrompt: (show) => set(produce(state => {state.modals.prompt = show})),
 

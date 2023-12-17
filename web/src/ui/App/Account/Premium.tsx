@@ -1,21 +1,14 @@
-import {BasicDialog, FullScreenDialog} from "../../Components/Dialog.tsx";
-import DialogContent from "@mui/material/DialogContent";
 import {useStore} from "../../../data/store";
 import {shallow} from "zustand/shallow";
 import {useCallback, useEffect, useState} from "react";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import PlanComparison, {buttonDefaults} from '../../Static/Splash/Features/PlanComparison.tsx'
-import {Loading} from "../../Components/Routing.tsx";
-import Stack from "@mui/material/Stack";
-import Alert from "@mui/material/Alert";
 import Banner from "../../Components/Banner"
 import * as dayjs from 'dayjs'
-import FeatureLayout from '../../Static/Splash/Features/FeatureLayout'
 import {STAGE} from '../../../utils/config'
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
@@ -24,7 +17,6 @@ import _ from "lodash";
 
 const PAYMENT_LINK = STAGE === "prod" ? "https://buy.stripe.com/fZe02UdpT5Xd6yI6op"
   : "https://buy.stripe.com/test_dR68wJ2kj6lc4es3cc"
-
 
 const fmt = (x: any) => dayjs.unix(x).format('YYYY-MM-DD')
 
@@ -66,17 +58,17 @@ export function SubscriptionDetails() {
     </TableContainer>
 }
 
-export default function PremiumModal() {
+export default function Premium() {
   const [
     me,
-    premiumModal,
-    setPremiumModal,
+    accountModal,
+    setAccountModal,
     stripe_list_response,
     send
   ] = useStore(s => [
     s.user?.me, 
-    s.modals.premium,
-    s.modals.setPremium,
+    s.modals.account,
+    s.modals.setAccount,
     s.res.stripe_list_response?.first,
     s.send
   ], shallow)
@@ -86,15 +78,15 @@ export default function PremiumModal() {
   const canceled = stripe_list_response?.status === "canceled"
 
   async function fetchStripeDetails() {
-    if (!(me?.payment_id && premiumModal)) {return}
+    if (!(me?.payment_id && accountModal)) {return}
     send("stripe_list_request", {})
   }
 
   useEffect(() => {
     fetchStripeDetails()
-  }, [me?.payment_id, premiumModal])
+  }, [me?.payment_id, accountModal])
 
-  const close = useCallback(() => {setPremiumModal(false)}, [])
+  const close = useCallback(() => {setAccountModal(false)}, [])
   async function cancelStripe() {
     // show confirmation alert, get yes response first
     if (!confirm("Are you sure you want to cancel your premium subscription?")) {return}
@@ -142,20 +134,11 @@ export default function PremiumModal() {
   }
 
   return <>
-    <FullScreenDialog
-      title="Plan Comparison"
-      open={premiumModal}
-      onClose={close}
-      className="premium modal"
-    >
-      <DialogContent>
-        <Banner />
-        <PlanComparison
-          premiumFooter={me?.premium ? premiumActiveFooter : premiumInactiveFooter}
-          basicFooter={me?.premium ? basicInactiveFooter : basicActiveFooter}
-        />
-        {/*<FeatureLayout />*/}
-      </DialogContent>
-    </FullScreenDialog>
+    <Banner />
+    <PlanComparison
+      premiumFooter={me?.premium ? premiumActiveFooter : premiumInactiveFooter}
+      basicFooter={me?.premium ? basicInactiveFooter : basicActiveFooter}
+    />
+    {/*<FeatureLayout />*/}
   </>
 }

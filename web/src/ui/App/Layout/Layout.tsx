@@ -17,7 +17,7 @@ import {ErrorSnack} from "../../Components/Error";
 // import GroupToolbar from "../Groups/View/Toolbar"
 // import SharingModal from "../Sharing"
 import EntryModal from "../Entries/Modal"
-import PremiumModal from '../Account/PremiumModal'
+import AccountModal from '../Account/AccountModal.tsx'
 import BooksModal from '../Insights/Resources/Books'
 import AppBar from './AppBar'
 import Footer from '../../Footer'
@@ -67,7 +67,7 @@ export default function Layout() {
     <SetupApi />
     {/*<SharingModal />*/}
     <EntryModal />
-    <PremiumModal />
+    <AccountModal />
     <BooksModal />
     <AcknowledgeChecker />
     <Errors />
